@@ -135,12 +135,12 @@ namespace UnityEngine.XR.Templates.AR
 
         [Tooltip("The Options Button to enable once the greeting prompt is dismissed.")]
         [SerializeField]
-        GameObject m_OptionsButton;
+        //GameObject m_OptionsButton;
 
         /// <summary>
         /// The Options Button to enable once the greeting prompt is dismissed.
         /// </summary>
-        public GameObject optionsButton
+        /*public GameObject optionsButton
         {
             get => m_OptionsButton;
             set => m_OptionsButton = value;
@@ -157,10 +157,10 @@ namespace UnityEngine.XR.Templates.AR
         {
             get => m_CreateButton;
             set => m_CreateButton = value;
-        }
+        
 
         [Tooltip("The AR Template Menu Manager object to enable once the greeting prompt is dismissed.")]
-        [SerializeField]
+        [SerializeField]}
         ARTemplateMenuManager m_MenuManager;
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace UnityEngine.XR.Templates.AR
         {
             get => m_MenuManager;
             set => m_MenuManager = value;
-        }
+        }*/
 
         const int k_NumberOfSurfacesTappedToCompleteGoal = 1;
 
@@ -233,7 +233,7 @@ namespace UnityEngine.XR.Templates.AR
             else if (m_CurrentGoal.CurrentGoal == OnboardingGoals.TapSurface)
             {
                 m_SurfacesTapped = 0;
-                m_ObjectSpawner.objectSpawned += OnObjectSpawned;
+                //m_ObjectSpawner.objectSpawned += OnObjectSpawned;
             }
         }
 
@@ -306,9 +306,9 @@ namespace UnityEngine.XR.Templates.AR
             m_CurrentGoalIndex = startingStep;
 
             m_GreetingPrompt.SetActive(false);
-            m_OptionsButton.SetActive(true);
-            m_CreateButton.SetActive(true);
-            m_MenuManager.enabled = true;
+            //m_OptionsButton.SetActive(true);
+            //m_CreateButton.SetActive(true);
+            //m_MenuManager.enabled = true;
 
             for (int i = startingStep; i < m_StepList.Count; i++)
             {

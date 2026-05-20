@@ -1,10 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Dominic\\Documents\\AR-Course\\AR-Navigation\\",
+  "WorkspaceRootPath": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{367560D7-4A4B-E47D-C685-D98571E270F1}|Assembly-CSharp.csproj|c:\\users\\dominic\\documents\\ar-course\\ar-navigation\\assets\\core\\scenealign.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{367560D7-4A4B-E47D-C685-D98571E270F1}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\scenealign.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\InterfaceController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Core\\InterfaceController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\SceneAlign.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Core\\SceneAlign.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\PathController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Core\\PathController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\OnClickStartNav.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Core\\OnClickStartNav.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,21 +26,74 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "InterfaceController.cs",
+              "DocumentMoniker": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\InterfaceController.cs",
+              "RelativeDocumentMoniker": "Assets\\Core\\InterfaceController.cs",
+              "ToolTip": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\InterfaceController.cs",
+              "RelativeToolTip": "Assets\\Core\\InterfaceController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T11:18:05.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OnClickStartNav.cs",
+              "DocumentMoniker": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\OnClickStartNav.cs",
+              "RelativeDocumentMoniker": "Assets\\Core\\OnClickStartNav.cs",
+              "ToolTip": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\OnClickStartNav.cs",
+              "RelativeToolTip": "Assets\\Core\\OnClickStartNav.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T10:46:39.772Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PathController.cs",
+              "DocumentMoniker": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\PathController.cs",
+              "RelativeDocumentMoniker": "Assets\\Core\\PathController.cs",
+              "ToolTip": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\PathController.cs",
+              "RelativeToolTip": "Assets\\Core\\PathController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T13:06:19.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "SceneAlign.cs",
-              "DocumentMoniker": "C:\\Users\\Dominic\\Documents\\AR-Course\\AR-Navigation\\Assets\\Core\\SceneAlign.cs",
+              "DocumentMoniker": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\SceneAlign.cs",
               "RelativeDocumentMoniker": "Assets\\Core\\SceneAlign.cs",
-              "ToolTip": "C:\\Users\\Dominic\\Documents\\AR-Course\\AR-Navigation\\Assets\\Core\\SceneAlign.cs",
+              "ToolTip": "C:\\Users\\Pauline\\Documents\\AI_Master\\3. Semester\\AR-Navigation\\AR-Navigation\\Assets\\Core\\SceneAlign.cs",
               "RelativeToolTip": "Assets\\Core\\SceneAlign.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACcAAABrAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAABrAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-11T12:12:48.274Z",
               "EditorCaption": ""
