@@ -39,6 +39,8 @@ namespace UniNav.Core
 
             Vector3 positionOffset = detectedImage.position - (rotationOffset * virtualAnchor.localPosition);
             buildingScanRoot.position = positionOffset;
+
+            buildingScanRoot.gameObject.SetActive(true);
         }
     }
 }
