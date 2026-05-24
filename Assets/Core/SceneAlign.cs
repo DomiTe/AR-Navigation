@@ -1,6 +1,7 @@
 namespace UniNav.Core 
 {
     using UnityEngine;
+    using UnityEngine.InputSystem;
     using UnityEngine.XR.ARFoundation;
 
     [RequireComponent(typeof(ARTrackedImageManager))]
@@ -8,7 +9,25 @@ namespace UniNav.Core
 
         [SerializeField] private Transform buildingScanRoot;
         [SerializeField] private Transform virtualAnchor;
+
+        [Header("UI Control")]
+        [SerializeField] private GameObject navigationUI;
+
+        [Header("Debug Settings")]
+        [SerializeField] private Transform xrCamera;
+
         private ARTrackedImageManager _imageManager;
+
+        private void Start() {
+            DebugForceAlign();
+        }
+
+        private void Update() {
+            // Polling hardware directly per Input System guidelines
+            if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame) {
+                DebugForceAlign();
+            }
+        }
 
         private void Awake() {
             _imageManager = GetComponent<ARTrackedImageManager>();
@@ -41,7 +60,27 @@ namespace UniNav.Core
             buildingScanRoot.position = positionOffset;
 
             buildingScanRoot.gameObject.SetActive(true);
+
+            if (navigationUI != null) {
+                navigationUI.SetActive(true);
+            }
         }
+
+        public void DebugForceAlign() {
+            // 1. Force the building to absolute zero to perfectly match JSON coordinates
+            buildingScanRoot.position = Vector3.zero;
+            buildingScanRoot.rotation = Quaternion.identity;
+
+            // 2. Activate the systems
+            buildingScanRoot.gameObject.SetActive(true);
+
+            if (navigationUI != null) {
+                navigationUI.SetActive(true);
+            }
+
+            Debug.Log("Bulletproof Align: Building snapped to Vector3.zero and rotation zeroed out.");
+        }
+
     }
 }
     
