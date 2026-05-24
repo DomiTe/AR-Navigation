@@ -13,7 +13,7 @@ namespace UnityEngine.XR.Templates.AR
     /// menu again when the create menu button is clicked after dismissal. Manages object deletion in the AR demo scene,
     /// and also handles the toggling between the object creation menu button and the delete button.
     /// </summary>
-    public class ARTemplateMenuManager : MonoBehaviour
+    /*public class ARTemplateMenuManager : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("Button that opens the create menu.")]
@@ -608,5 +608,5 @@ namespace UnityEngine.XR.Templates.AR
                 }
             }
         }
-    }
+    }*/
 }
