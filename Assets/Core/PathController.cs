@@ -41,11 +41,11 @@ namespace UniNav.Core {
                 return;
             }
 
-            Vector3 startPos = Vector3.zero; // Demo: building root
+            Vector3 startPos = xrCamera.position; // Demo: building root
 
             // Snap start to navmesh
             NavMeshHit startHit;
-            if (!NavMesh.SamplePosition(startPos, out startHit, 2f, NavMesh.AllAreas)) {
+            if (!NavMesh.SamplePosition(startPos, out startHit, 5f, NavMesh.AllAreas)) {
                 Debug.LogError($"START POSITION {startPos} is not on NavMesh! Check bake.");
                 return;
             }
@@ -54,6 +54,7 @@ namespace UniNav.Core {
             NavMeshHit targetHit;
             if (!NavMesh.SamplePosition(_targetPos, out targetHit, 2f, NavMesh.AllAreas)) {
                 Debug.LogError($"TARGET POSITION {_targetPos} is not on NavMesh! Check coordinates.");
+                _hasTarget = false;
                 return;
             }
 
@@ -68,7 +69,6 @@ namespace UniNav.Core {
                     line.positionCount = corners.Length;
                     line.SetPositions(corners);
                     Debug.Log($"Path drawn with {corners.Length} corners.");
-                    _hasTarget = false;
                 }
                 else {
                     Debug.LogWarning($"Path status: {_path.status} — is the navmesh fully connected?");
@@ -77,6 +77,7 @@ namespace UniNav.Core {
             }
             else {
                 Debug.LogError("NavMesh.CalculatePath returned FALSE — no path found at all.");
+                _hasTarget = false;
             }
         }
     }
