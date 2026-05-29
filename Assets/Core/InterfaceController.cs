@@ -4,6 +4,7 @@ using System.Reflection.Emit;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UniNav.Core;
 
 public class InterfaceController : MonoBehaviour
 {
@@ -12,17 +13,22 @@ public class InterfaceController : MonoBehaviour
     public TMP_Text RouteText;
     public TMP_Dropdown DestinationInput;
 
+    public PathController PathManager;
+
     // Beispiel-Array
-    public static string[] destinations =
+    //public string[] destinations =
+    //{
+    //    "Raum A101",
+    //    "Labor",
+    //    "Cafeteria",
+    //    "Ausgang"
+    //};
+
+    private Dictionary<string, Vector3> demoDestinations = new Dictionary<string, Vector3>()
     {
-        "Raum 101", "Raum 102", "Raum 103", "Raum 104", "Raum 105", "Raum 106", "Raum 107", "Raum 108", "Raum 109", "Raum 110",
-        "Raum 111", "Raum 112", "Raum 113", "Raum 114", "Raum 115", "Raum 116", "Raum 117", "Raum 118", "Raum 119", "Raum 120",
-        "Raum 121", "Raum 122", "Raum 123", "Raum 124", "Raum 125", "Raum 126", "Raum 127", "Raum 128", "Raum 129", "Raum 130",
-        "Raum 131", "Raum 132", "Raum 133", "Raum 134", "Raum 135", "Raum 136", "Raum 137", "Raum 138", "Raum 139", "Raum 140",
-        "Raum 141", "Raum 142", "Raum 143", "Raum 144", "Raum 145", "Raum 146", "Raum 147", "Raum 148", "Raum 149", "Raum 150",
-        "Raum 151", "Raum 152", "Raum 153", "Raum 154", "Raum 155", "Raum 156", "Raum 157", "Raum 158", "Raum 159", "Raum 160",
-        "Raum 161", "Raum 162", "Raum 163", "Raum 164", "Raum 165", "Raum 166", "Raum 167", "Raum 168", "Raum 169", "Raum 170",
-        "Raum 171", "Raum 172", "Raum 173", "Raum 174", "Raum 175"
+        { "Room_101_Door", new Vector3(9.368f, 0f, 14.793f) }, //worldspace
+        { "Room_125_Door", new Vector3(30.094f, 0f, 54.21f) },
+        { "Room_165_Door", new Vector3(-19.13f, 0f, -26.76f) }
     };
 
 
@@ -40,36 +46,55 @@ public class InterfaceController : MonoBehaviour
     {
     }
 
-    public void ShowRouteText()
-    {
-        Debug.Log("You have clicked the button!");
+    public void ShowRouteText() {
+        Debug.Log("Step 1: Button clicked.");
+
+        // Check the Elevator Toggle
+        if (T_Elevator == null) Debug.LogError("CRASH POINT: Elevator Toggle slot is empty in Inspector!");
         bool useElevator = T_Elevator.isOn;
-        string destination = DestinationInput.captionText.text;
-        RouteText.text = "Calculating best route ...";
+        Debug.Log("Step 2: Elevator read successfully.");
+
+        // Check the Dropdown
+        if (DestinationInput == null) Debug.LogError("CRASH POINT: Dropdown slot is empty in Inspector!");
+        if (DestinationInput.captionText == null) Debug.LogError("CRASH POINT: Dropdown is missing its caption text component!");
+        string destination = DestinationInput.options[DestinationInput.value].text;
+        Debug.Log("Step 3: Destination read successfully. Target is: " + destination);
+
+        // Check the Route Text UI
+        if (RouteText == null) {
+            Debug.LogWarning("Route Text slot is empty, skipping text update.");
+        }
+        else {
+            RouteText.text = "Routing to " + destination;
+            Debug.Log("Step 4: UI Text updated successfully.");
+        }
+
+        Debug.Log("Step 5: Handing off to CalculateRoute...");
         CalculatingRoute(useElevator, destination);
     }
 
-    public void CalculatingRoute(bool useElevator, string destination)
-    {
-        if (useElevator)
-        {
-            // Elevator selected 
-            Debug.Log("Elevator selected to destination: "+ destination);
+    public void CalculatingRoute(bool useElevator, string destination) {
+        Debug.Log("Step 6: Entered CalculatingRoute.");
+
+        if (PathManager == null) {
+            Debug.LogError("CRASH POINT: PathManager slot is EMPTY in the InterfaceController Inspector!");
+            return;
         }
-        else
-        {
-            // Staires selcted
-            Debug.Log("Staires selected to destination: "+ destination);
+
+        // Use demoDestinations for the lookup
+        if (demoDestinations.TryGetValue(destination, out Vector3 targetCoords)) {
+            Debug.Log($"Step 7: Route Found in Dictionary at {targetCoords}");
+            PathManager.SetTarget(targetCoords);
+            Debug.Log("Step 8: Target successfully handed to the PathController.");
+        }
+        else {
+            Debug.LogError($"CRASH POINT: Dictionary Lookup Failed! '{destination}' does not exist in rooms.");
         }
     }
 
-    void FillDropdown()
-    {
+    void FillDropdown() {
         DestinationInput.ClearOptions();
-
-        List<string> options =
-            new List<string>(destinations);
-
+        List<string> options = new List<string>(demoDestinations.Keys);
         DestinationInput.AddOptions(options);
     }
 }
