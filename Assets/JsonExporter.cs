@@ -4,24 +4,38 @@ using UnityEngine;
 
 public class JsonExporter : MonoBehaviour
 {
-    // Dadurch bekommen wir eine Klick-Funktion im Inspector!
     [ContextMenu("Jetzt Exportieren")]
     public void Exportieren()
     {
         StringBuilder json = new StringBuilder();
         json.AppendLine("{");
 
-        int childCount = transform.childCount;
-        for (int i = 0; i < childCount; i++)
+        // Sucht alle Objekte in der Szene, die mit "Room_" anfangen
+        GameObject[] allObjects = GameObject.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+        System.Collections.Generic.List<GameObject> roomObjects = new System.Collections.Generic.List<GameObject>();
+
+        foreach (GameObject go in allObjects)
         {
-            Transform child = transform.GetChild(i);
+            if (go.name.StartsWith("Room_"))
+            {
+                roomObjects.Add(go);
+            }
+        }
 
-            string xStr = child.position.x.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
-            string zStr = child.position.z.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+        // Sortiert die Räume sauber von 101 bis 175
+        roomObjects.Sort((a, b) => a.name.CompareTo(b.name));
 
-            json.Append($"  \"{child.name}\": {{ \"x\": {xStr}, \"z\": {zStr} }}");
+        for (int i = 0; i < roomObjects.Count; i++)
+        {
+            GameObject room = roomObjects[i];
 
-            if (i < childCount - 1) json.AppendLine(",");
+            // Holt die echten WELT-KOORDINATEN (World Space)
+            string xStr = room.transform.position.x.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            string zStr = room.transform.position.z.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+
+            json.Append($"  \"{room.name.Trim()}\": {{ \"x\": {xStr}, \"z\": {zStr} }}");
+
+            if (i < roomObjects.Count - 1) json.AppendLine(",");
             else json.AppendLine("");
         }
 
@@ -30,6 +44,6 @@ public class JsonExporter : MonoBehaviour
         string path = Path.Combine(Application.dataPath, "rooms.json");
         File.WriteAllText(path, json.ToString());
 
-        Debug.Log("JSON erfolgreich exportiert unter: " + path);
+        Debug.Log("JSON mit echten WELT-KOORDINATEN erstellt: " + path);
     }
 }
