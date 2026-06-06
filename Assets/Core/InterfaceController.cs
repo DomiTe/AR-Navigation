@@ -25,8 +25,8 @@ public class InterfaceController : MonoBehaviour
 
     private Dictionary<string, Vector3> demoDestinations = new Dictionary<string, Vector3>()
     {
-        { "Room_101_Door", new Vector3(9.368f, 0f, 14.793f) }, //worldspace
-        { "Room_125_Door", new Vector3(30.094f, 0f, 54.21f) },
+        { "Room_101_Door", new Vector3(-12.058f, 0f, -44.09f) }, // relative to Floor/
+        { "Room_125_Door", new Vector3(11.37f, 0f, 22.26f) },
         { "Room_165_Door", new Vector3(-19.13f, 0f, -26.76f) }
     };
 

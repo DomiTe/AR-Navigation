@@ -12,6 +12,7 @@ namespace UniNav.Core
 
         [Header("UI Control")]
         [SerializeField] private GameObject navigationUI;
+        [SerializeField] private GameObject scanUI;
 
         [Header("Debug Settings")]
         [SerializeField] private Transform xrCamera;
@@ -19,7 +20,12 @@ namespace UniNav.Core
         private ARTrackedImageManager _imageManager;
 
         private void Start() {
-            DebugForceAlign();
+            #if UNITY_EDITOR
+                DebugForceAlign();
+            #else
+                if (scanUI != null) scanUI.SetActive(true);
+                if (navigationUI != null) navigationUI.SetActive(false);
+            #endif
         }
 
         private void Update() {
@@ -61,6 +67,9 @@ namespace UniNav.Core
 
             buildingScanRoot.gameObject.SetActive(true);
 
+            if (scanUI != null) {
+                scanUI.SetActive(false);
+            }
             if (navigationUI != null) {
                 navigationUI.SetActive(true);
             }
