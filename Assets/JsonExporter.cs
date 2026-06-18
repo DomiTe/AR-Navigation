@@ -17,9 +17,10 @@ public class JsonExporter : MonoBehaviour
             Transform child = transform.GetChild(i);
 
             string xStr = child.position.x.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            string yStr = child.position.y.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
             string zStr = child.position.z.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
 
-            json.Append($"  \"{child.name}\": {{ \"x\": {xStr}, \"z\": {zStr} }}");
+            json.Append($"  \"{child.name}\": {{ \"x\": {xStr}, \"y\": {yStr}, \"z\": {zStr} }}");
 
             if (i < childCount - 1) json.AppendLine(",");
             else json.AppendLine("");
@@ -27,7 +28,7 @@ public class JsonExporter : MonoBehaviour
 
         json.AppendLine("}");
 
-        string path = Path.Combine(Application.dataPath, "rooms.json");
+        string path = Path.Combine(Application.dataPath, "Resources", "rooms.json");
         File.WriteAllText(path, json.ToString());
 
         Debug.Log("JSON erfolgreich exportiert unter: " + path);

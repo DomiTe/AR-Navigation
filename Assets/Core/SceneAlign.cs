@@ -2,9 +2,10 @@ namespace UniNav.Core
 {
     using UnityEngine;
     using UnityEngine.InputSystem;
-    using UnityEngine.XR.ARFoundation;
+    //using UnityEngine.XR.ARFoundation;
+    using TMPro;
 
-    [RequireComponent(typeof(ARTrackedImageManager))]
+    //[RequireComponent(typeof(ARTrackedImageManager))]
     public class SceneAlign : MonoBehaviour {
 
         [SerializeField] private Transform buildingScanRoot;
@@ -14,18 +15,21 @@ namespace UniNav.Core
         [SerializeField] private GameObject navigationUI;
         [SerializeField] private GameObject scanUI;
 
+        [SerializeField] private TMP_Dropdown startLocationDropdown;
+        [SerializeField] private Transform[] startAnchors;
+
         [Header("Debug Settings")]
         [SerializeField] private Transform xrCamera;
 
-        private ARTrackedImageManager _imageManager;
+        //private ARTrackedImageManager _imageManager;
 
         private void Start() {
-            #if UNITY_EDITOR
-                DebugForceAlign();
-            #else
-                if (scanUI != null) scanUI.SetActive(true);
-                if (navigationUI != null) navigationUI.SetActive(false);
-            #endif
+        #if UNITY_EDITOR
+            DebugForceAlign();
+        #else
+            if (scanUI != null) scanUI.SetActive(true);
+            if (navigationUI != null) navigationUI.SetActive(false);
+        #endif
         }
 
         private void Update() {
@@ -35,28 +39,28 @@ namespace UniNav.Core
             }
         }
 
-        private void Awake() {
-            _imageManager = GetComponent<ARTrackedImageManager>();
-        }
+        //private void Awake() {
+        //    _imageManager = GetComponent<ARTrackedImageManager>();
+        //}
 
-        private void OnEnable() {
-            _imageManager.trackablesChanged.AddListener(OnTrackablesChanged);
-        }
+        //private void OnEnable() {
+        //    _imageManager.trackablesChanged.AddListener(OnTrackablesChanged);
+        //}
 
-        private void OnDisable() {
-            _imageManager.trackablesChanged.RemoveListener(OnTrackablesChanged);
-        }
-        private void OnTrackablesChanged(ARTrackablesChangedEventArgs<ARTrackedImage> eventArgs) {
-            foreach (var addedImage in eventArgs.added) {
-                AlignBuilding(addedImage.transform);
-            }
+        //private void OnDisable() {
+        //    _imageManager.trackablesChanged.RemoveListener(OnTrackablesChanged);
+        //}
+        //private void OnTrackablesChanged(ARTrackablesChangedEventArgs<ARTrackedImage> eventArgs) {
+        //    foreach (var addedImage in eventArgs.added) {
+        //        AlignBuilding(addedImage.transform);
+        //    }
 
-            foreach (var updatedImage in eventArgs.updated) {
-                if (updatedImage.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking) {
-                    AlignBuilding(updatedImage.transform);
-                }
-            }
-        }
+        //    foreach (var updatedImage in eventArgs.updated) {
+        //        if (updatedImage.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking) {
+        //            AlignBuilding(updatedImage.transform);
+        //        }
+        //    }
+        //}
 
         private void AlignBuilding(Transform detectedImage) {
             Quaternion rotationOffset = detectedImage.rotation * Quaternion.Inverse(virtualAnchor.localRotation);
@@ -75,19 +79,44 @@ namespace UniNav.Core
             }
         }
 
+        public void ConfirmStartLocation() {
+            // get the selected dropdown option index
+            int selectedIndex = startLocationDropdown.value;
+
+            // safety check to ensure we don't pick an anchor that doesn't exist
+            if (selectedIndex < 0 || selectedIndex >= startAnchors.Length) {
+                Debug.LogError("Selected dropdown index has no matching Start Anchor!");
+                return;
+            }
+
+            // get the transform of the chosen virtual anchor
+            Transform selectedAnchor = startAnchors[selectedIndex];
+
+            // find the difference between where the camera is looking and where the anchor is looking
+            float angleOffset = xrCamera.eulerAngles.y - selectedAnchor.eulerAngles.y;
+            buildingScanRoot.Rotate(0, angleOffset, 0, Space.World);
+
+            Vector3 positionOffset = xrCamera.position - selectedAnchor.position;
+            positionOffset.y = 0;
+            buildingScanRoot.position += positionOffset;
+
+            // swap
+            if (scanUI != null) scanUI.SetActive(false);
+            if (navigationUI != null) navigationUI.SetActive(true);
+        }
+
         public void DebugForceAlign() {
-            // 1. Force the building to absolute zero to perfectly match JSON coordinates
+            // force the building to zero match JSON coordinates
             buildingScanRoot.position = Vector3.zero;
             buildingScanRoot.rotation = Quaternion.identity;
 
-            // 2. Activate the systems
             buildingScanRoot.gameObject.SetActive(true);
 
             if (navigationUI != null) {
                 navigationUI.SetActive(true);
             }
 
-            Debug.Log("Bulletproof Align: Building snapped to Vector3.zero and rotation zeroed out.");
+            Debug.Log("Align: Building snapped to Vector3.zero and rotation zeroed out.");
         }
 
     }
