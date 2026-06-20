@@ -12,6 +12,7 @@ public class InterfaceController : MonoBehaviour
     public Toggle T_Elevator; 
     public TMP_Text RouteText;
     public TMP_Dropdown DestinationInput;
+    public TMP_Dropdown StartLocationDropdown; 
 
     public PathController PathManager;
 
@@ -54,11 +55,17 @@ public class InterfaceController : MonoBehaviour
         bool useElevator = T_Elevator.isOn;
         Debug.Log("Step 2: Elevator read successfully.");
 
-        // Check the Dropdown
+        // Check the Start Location Dropdown
+        if (StartLocationDropdown == null) Debug.LogError("CRASH POINT: Start Location Dropdown slot is empty in Inspector!");
+        if (StartLocationDropdown.captionText == null) Debug.LogError("CRASH POINT: Start Location Dropdown is missing its caption text component!");
+        string start = StartLocationDropdown.options[StartLocationDropdown.value].text;
+        Debug.Log("Step 3: Start Location read successfully. Start is: " + start);
+
+        // Check the Destination Dropdown
         if (DestinationInput == null) Debug.LogError("CRASH POINT: Dropdown slot is empty in Inspector!");
         if (DestinationInput.captionText == null) Debug.LogError("CRASH POINT: Dropdown is missing its caption text component!");
         string destination = DestinationInput.options[DestinationInput.value].text;
-        Debug.Log("Step 3: Destination read successfully. Target is: " + destination);
+        Debug.Log("Step 4: Destination read successfully. Target is: " + destination);
 
         // Check the Route Text UI
         if (RouteText == null) {
@@ -66,15 +73,33 @@ public class InterfaceController : MonoBehaviour
         }
         else {
             RouteText.text = "Routing to " + destination;
-            Debug.Log("Step 4: UI Text updated successfully.");
+            Debug.Log("Step 5: UI Text updated successfully.");
         }
 
-        Debug.Log("Step 5: Handing off to CalculateRoute...");
-        CalculatingRoute(useElevator, destination);
+        Debug.Log("Step 6: Handing off to CalculateRoute...");
+        CalculatingRoute(useElevator, start, destination);
     }
 
-    public void CalculatingRoute(bool useElevator, string destination) {
-        Debug.Log("Step 6: Entered CalculatingRoute.");
+    public void LoadDestinationsFromJson() {
+        TextAsset jsonFile = Resources.Load<TextAsset>("rooms");
+
+        if (jsonFile != null) {
+            // Get the text from the loaded asset
+            string jsonText = jsonFile.text;
+            var parsedData = JsonConvert.DeserializeObject<Dictionary<string, CoordinateData>>(jsonText);
+
+            foreach (var kvp in parsedData) {
+                Vector3 targetCoords = new Vector3(kvp.Value.x, kvp.Value.y, kvp.Value.z);
+                loadedDestinations.Add(kvp.Key, targetCoords);
+            }
+        }
+        else {
+            Debug.LogError("Failed to load rooms.json from Resources folder!");
+        }
+    }
+
+    public void CalculatingRoute(bool useElevator, string start, string destination) {
+        Debug.Log("Step 7: Entered CalculatingRoute.");
 
         if (PathManager == null) {
             Debug.LogError("CRASH POINT: PathManager slot is EMPTY in the InterfaceController Inspector!");
@@ -82,19 +107,23 @@ public class InterfaceController : MonoBehaviour
         }
 
         // Use demoDestinations for the lookup
-        if (demoDestinations.TryGetValue(destination, out Vector3 targetCoords)) {
-            Debug.Log($"Step 7: Route Found in Dictionary at {targetCoords}");
+        if (loadedDestinations.TryGetValue(destination, out Vector3 targetCoords) && loadedDestinations.TryGetValue(start, out Vector3 startCoords)) {
+            Debug.Log($"Step 8: Route Found in Dictionary at {targetCoords} and {startCoords}.");
             PathManager.SetTarget(targetCoords);
-            Debug.Log("Step 8: Target successfully handed to the PathController.");
+            Debug.Log("Step 9: Target successfully handed to the PathController.");
+            PathManager.SetStart(startCoords);
+            Debug.Log("Step 10: Start successfully handed to the PathController.");
         }
         else {
-            Debug.LogError($"CRASH POINT: Dictionary Lookup Failed! '{destination}' does not exist in rooms.");
+            Debug.LogError($"CRASH POINT: Dictionary Lookup Failed! '{destination}' or '{start}' does not exist in rooms.");
         }
     }
 
     void FillDropdown() {
         DestinationInput.ClearOptions();
-        List<string> options = new List<string>(demoDestinations.Keys);
+        StartLocationDropdown.ClearOptions();
+        List<string> options = new List<string>(loadedDestinations.Keys);
         DestinationInput.AddOptions(options);
+        StartLocationDropdown.AddOptions(options);
     }
 }

@@ -8,6 +8,8 @@ namespace UniNav.Core {
         [SerializeField] private Transform buildingRoot;
 
         private NavMeshPath _path;
+        private Vector3 _startPos;
+        private bool _hasStart = false;
         private Vector3 _targetPos;
         private bool _hasTarget = false;
 
@@ -19,6 +21,20 @@ namespace UniNav.Core {
             if (_hasTarget) {
                 CalculateAndDrawPath();
             }
+        }
+
+        public void SetStart(Vector3 localCoordinates) {
+            Debug.Log($"Path Step 1: SetStart received local coords {localCoordinates}");
+            line.positionCount = 0;
+            if (buildingRoot == null) {
+                Debug.LogError("CRASH POINT: Building Root is missing in PathController!");
+                return;
+            }
+
+            _startPos = buildingRoot.TransformPoint(localCoordinates);
+            _hasStart = true;
+
+            Debug.Log($"Path Step 2: Start converted to World Space: {_startPos}");
         }
 
         public void SetTarget(Vector3 localCoordinates) {
@@ -41,12 +57,20 @@ namespace UniNav.Core {
                 return;
             }
 
-            Vector3 startPos = xrCamera.position; // Demo: building root
+            if (_hasStart == false)
+            {
+                Debug.Log("START POSITION NOT SET, using camera position as start.");
+                Vector3 _startPos = xrCamera.position; // Demo: building root
+            }
+            else
+            {
+                Debug.Log("Using provided start position.");
+            }
 
             // Snap start to navmesh
             NavMeshHit startHit;
-            if (!NavMesh.SamplePosition(startPos, out startHit, 5f, NavMesh.AllAreas)) {
-                Debug.LogError($"START POSITION {startPos} is not on NavMesh! Check bake.");
+            if (!NavMesh.SamplePosition(_startPos, out startHit, 5f, NavMesh.AllAreas)) {
+                Debug.LogError($"START POSITION {_startPos} is not on NavMesh! Check bake.");
                 return;
             }
 
@@ -71,12 +95,12 @@ namespace UniNav.Core {
                     Debug.Log($"Path drawn with {corners.Length} corners.");
                 }
                 else {
-                    Debug.LogWarning($"Path status: {_path.status} — is the navmesh fully connected?");
+                    Debug.LogWarning($"Path status: {_path.status} ï¿½ is the navmesh fully connected?");
                     _hasTarget = false;
                 }
             }
             else {
-                Debug.LogError("NavMesh.CalculatePath returned FALSE — no path found at all.");
+                Debug.LogError("NavMesh.CalculatePath returned FALSE ï¿½ no path found at all.");
                 _hasTarget = false;
             }
         }
