@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UniNav.Core;
+using System.IO;
+using Newtonsoft.Json;
 
 public class InterfaceController : MonoBehaviour
 {
@@ -25,19 +27,25 @@ public class InterfaceController : MonoBehaviour
     //    "Ausgang"
     //};
 
-    private Dictionary<string, Vector3> demoDestinations = new Dictionary<string, Vector3>()
-    {
-        { "Room_101_Door", new Vector3(9.368f, 0f, 14.793f) }, //worldspace
-        { "Room_125_Door", new Vector3(30.094f, 0f, 54.21f) },
-        { "Room_165_Door", new Vector3(-19.13f, 0f, -26.76f) }
-    };
+    //private Dictionary<string, Vector3> demoDestinations = new Dictionary<string, Vector3>()
+    //{
+    //    { "Room_101_Door", new Vector3(-12.058f, 0f, -44.09f) }, // relative to Floor/
+    //    { "Room_125_Door", new Vector3(11.37f, 0f, 22.26f) },
+    //    { "Room_165_Door", new Vector3(-19.13f, 0f, -26.76f) }
+    //};
 
-
+    private Dictionary<string, Vector3> loadedDestinations = new Dictionary<string, Vector3>();
+    private class CoordinateData {
+        public float x {  get; set; }
+        public float y { get; set; }
+        public float z { get; set; }
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Debug.Log("Start");
         RouteText.text = "";
+        LoadDestinationsFromJson();
         FillDropdown();
         B_StartNav.onClick.AddListener(ShowRouteText);
     }
@@ -90,7 +98,9 @@ public class InterfaceController : MonoBehaviour
 
             foreach (var kvp in parsedData) {
                 Vector3 targetCoords = new Vector3(kvp.Value.x, kvp.Value.y, kvp.Value.z);
+                //Vector3 startCoords = new Vector3(kvp.Value.x, kvp.Value.y, kvp.Value.z);
                 loadedDestinations.Add(kvp.Key, targetCoords);
+                //loadedDestinations.Add(kvp.Key, startCoords);
             }
         }
         else {
@@ -107,11 +117,11 @@ public class InterfaceController : MonoBehaviour
         }
 
         // Use demoDestinations for the lookup
-        if (loadedDestinations.TryGetValue(destination, out Vector3 targetCoords) && loadedDestinations.TryGetValue(start, out Vector3 startCoords)) {
-            Debug.Log($"Step 8: Route Found in Dictionary at {targetCoords} and {startCoords}.");
+        if (loadedDestinations.TryGetValue(destination, out Vector3 targetCoords)) {
+            Debug.Log($"Step 8: Route Found in Dictionary at {targetCoords}.");
             PathManager.SetTarget(targetCoords);
             Debug.Log("Step 9: Target successfully handed to the PathController.");
-            PathManager.SetStart(startCoords);
+            PathManager.SetStart(targetCoords);
             Debug.Log("Step 10: Start successfully handed to the PathController.");
         }
         else {

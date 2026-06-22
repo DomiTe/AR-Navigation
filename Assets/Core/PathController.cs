@@ -25,7 +25,7 @@ namespace UniNav.Core {
 
         public void SetStart(Vector3 localCoordinates) {
             Debug.Log($"Path Step 1: SetStart received local coords {localCoordinates}");
-            line.positionCount = 0;
+            //line.positionCount = 0;
             if (buildingRoot == null) {
                 Debug.LogError("CRASH POINT: Building Root is missing in PathController!");
                 return;
@@ -60,18 +60,12 @@ namespace UniNav.Core {
             if (_hasStart == false)
             {
                 Debug.Log("START POSITION NOT SET, using camera position as start.");
-                Vector3 _startPos = xrCamera.position; // Demo: building root
+                _startPos = xrCamera.position; // use the field, not a local variable
+                _hasStart = true;
             }
             else
             {
                 Debug.Log("Using provided start position.");
-            }
-
-            // Snap start to navmesh
-            NavMeshHit startHit;
-            if (!NavMesh.SamplePosition(_startPos, out startHit, 5f, NavMesh.AllAreas)) {
-                Debug.LogError($"START POSITION {_startPos} is not on NavMesh! Check bake.");
-                return;
             }
 
             // Snap target to navmesh  
@@ -81,6 +75,21 @@ namespace UniNav.Core {
                 _hasTarget = false;
                 return;
             }
+            else 
+            {
+                Debug.Log($"Snapped target: {targetHit.position}");
+            }
+            
+            // Snap start to navmesh
+            NavMeshHit startHit;
+            Debug.Log($"StartPos: {_startPos}");
+            if (!NavMesh.SamplePosition(_startPos, out startHit, 5f, NavMesh.AllAreas)) {
+                Debug.LogError($"START POSITION {_startPos} is not on NavMesh! Check bake.");
+                Debug.Log($" DISTANCE: dist={Vector3.Distance(_startPos, startHit.position)}  at {startHit.position}");
+                return;
+            }
+
+
 
             Debug.Log($"Snapped start: {startHit.position}, Snapped target: {targetHit.position}");
 
