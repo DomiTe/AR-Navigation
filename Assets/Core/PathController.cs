@@ -8,12 +8,16 @@ namespace UniNav.Core {
         [SerializeField] private Transform buildingRoot;
 
         private NavMeshPath _path;
-        private Vector3 _startPos;
-        private bool _hasStart = false;
+        private Vector3 _cameraOffset = Vector3.zero;
+        //private Vector3 _startPos;
+        //private bool _hasStart = false;
+
         private Vector3 _targetPos;
         private bool _hasTarget = false;
+
         private float _lastRecalcTime = 0f;
         private const float RecalcInterval = 0.5f;
+
 
         private void Start() {
             _path = new NavMeshPath();
@@ -39,10 +43,18 @@ namespace UniNav.Core {
                 return;
             }
 
-            _startPos = buildingRoot.TransformPoint(localCoordinates);
-            _hasStart = true;
+            Vector3 worldStart = buildingRoot.TransformPoint(localCoordinates);
+            Vector3 cameraPos = xrCamera.position;
+            _cameraOffset = new Vector3(
+                worldStart.x - cameraPos.x,
+                0f,
+                worldStart.z - cameraPos.z
+                );
 
-            Debug.Log($"Path Step 2: Start converted to World Space: {_startPos}");
+            //_startPos = buildingRoot.TransformPoint(localCoordinates);
+            //_hasStart = false;
+
+            Debug.Log($"Camera offset set: {_cameraOffset}");
         }
 
         public void SetTarget(Vector3 localCoordinates) {
@@ -53,7 +65,8 @@ namespace UniNav.Core {
             line.positionCount = 0;
             _targetPos = buildingRoot.TransformPoint(localCoordinates);
             _hasTarget = true;
-            _hasStart = false;
+            //_hasStart = false;
+            _cameraOffset = Vector3.zero;
             Debug.Log($"Target set in world space: {_targetPos}");
         }
 
@@ -62,17 +75,23 @@ namespace UniNav.Core {
             _lastRecalcTime = Time.time;
 
             if (xrCamera == null || line == null) return;
+            Vector3 cameraPos = xrCamera.position;
+            Vector3 startPos = new Vector3(
+                cameraPos.x + _cameraOffset.x,
+                1.89f,
+                cameraPos.z + _cameraOffset.z
+            );
 
-            Vector3 startPos;
-            if (_hasStart) {
-                startPos = _startPos; // from dropdown selection
-                Debug.Log($"Using manual start: {startPos}");
-            }
-            else {
-                Vector3 cameraPos = xrCamera.position;
-                startPos = new Vector3(cameraPos.x, buildingRoot.position.y, cameraPos.z);
-                Debug.Log($"Using camera start: {startPos}");
-            }
+            //Vector3 startPos;
+            //if (_hasStart) {
+            //    startPos = _startPos; // from dropdown selection
+            //    Debug.Log($"Using manual start: {startPos}");
+            //}
+            //else {
+            //    Vector3 cameraPos = xrCamera.position;
+            //    startPos = new Vector3(cameraPos.x + _cameraOffset.x, buildingRoot.position.y, cameraPos.z + _cameraOffset.z);
+            //    Debug.Log($"Using camera start: {startPos}");
+            //}
 
             //if (Physics.Raycast(cameraPos, Vector3.down, out RaycastHit hit, 10f)) {
             //    startPos = hit.point;
@@ -103,7 +122,7 @@ namespace UniNav.Core {
                     line.SetPositions(corners);
                     Debug.Log($"Path drawn: {corners.Length} corners.");
 
-                    _hasStart = false;
+                    //_hasStart = false; // comment out to disable camera tracking
                 }
                 else {
                     Debug.LogWarning($"Path status: {_path.status}");
