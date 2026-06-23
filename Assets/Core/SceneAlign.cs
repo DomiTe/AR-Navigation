@@ -26,10 +26,11 @@ namespace UniNav.Core
         private void Start() {
         #if UNITY_EDITOR
             DebugForceAlign();
-        #else
+#else
+            DebugForceAlign();
             if (scanUI != null) scanUI.SetActive(true);
             if (navigationUI != null) navigationUI.SetActive(false);
-        #endif
+#endif
         }
 
         private void Update() {
@@ -107,8 +108,8 @@ namespace UniNav.Core
 
         public void DebugForceAlign() {
             // force the building to zero match JSON coordinates
-            buildingScanRoot.position = Vector3.zero;
-            buildingScanRoot.rotation = Quaternion.identity;
+            buildingScanRoot.position = new Vector3(0f, -1.89f, 0f);
+            buildingScanRoot.rotation = Quaternion.Euler(0f, 0f, 0f);
 
             buildingScanRoot.gameObject.SetActive(true);
 

@@ -121,8 +121,8 @@ public class InterfaceController : MonoBehaviour
             Debug.Log($"Step 8: Route Found in Dictionary at {targetCoords}.");
             PathManager.SetTarget(targetCoords);
             Debug.Log("Step 9: Target successfully handed to the PathController.");
-            PathManager.SetStart(targetCoords);
-            Debug.Log("Step 10: Start successfully handed to the PathController.");
+        //    PathManager.SetStart(targetCoords);
+        //    Debug.Log("Step 10: Start successfully handed to the PathController.");
         }
         else {
             Debug.LogError($"CRASH POINT: Dictionary Lookup Failed! '{destination}' or '{start}' does not exist in rooms.");
