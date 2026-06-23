@@ -9,7 +9,7 @@ namespace UniNav.Core {
 
         private NavMeshPath _path;
         private Vector3 _startPos;
-        //private bool _hasStart = false;
+        private bool _hasStart = false;
         private Vector3 _targetPos;
         private bool _hasTarget = false;
         private float _lastRecalcTime = 0f;
@@ -31,19 +31,19 @@ namespace UniNav.Core {
             }
         }
 
-        //public void SetStart(Vector3 localCoordinates) {
-        //    Debug.Log($"Path Step 1: SetStart received local coords {localCoordinates}");
-        //    //line.positionCount = 0;
-        //    if (buildingRoot == null) {
-        //        Debug.LogError("CRASH POINT: Building Root is missing in PathController!");
-        //        return;
-        //    }
+        public void SetStart(Vector3 localCoordinates) {
+            Debug.Log($"Path Step 1: SetStart received local coords {localCoordinates}");
+            //line.positionCount = 0;
+            if (buildingRoot == null) {
+                Debug.LogError("CRASH POINT: Building Root is missing in PathController!");
+                return;
+            }
 
-        //    _startPos = buildingRoot.TransformPoint(localCoordinates);
-        //    _hasStart = true;
+            _startPos = buildingRoot.TransformPoint(localCoordinates);
+            _hasStart = true;
 
-        //    Debug.Log($"Path Step 2: Start converted to World Space: {_startPos}");
-        //}
+            Debug.Log($"Path Step 2: Start converted to World Space: {_startPos}");
+        }
 
         public void SetTarget(Vector3 localCoordinates) {
             if (buildingRoot == null) {
@@ -53,6 +53,7 @@ namespace UniNav.Core {
             line.positionCount = 0;
             _targetPos = buildingRoot.TransformPoint(localCoordinates);
             _hasTarget = true;
+            _hasStart = false;
             Debug.Log($"Target set in world space: {_targetPos}");
         }
 
@@ -62,18 +63,23 @@ namespace UniNav.Core {
 
             if (xrCamera == null || line == null) return;
 
-            Vector3 cameraPos = xrCamera.position;
-            Vector3 startPos = new Vector3(
-                cameraPos.x,
-                buildingRoot.position.y,
-                cameraPos.z
-            );
-            if (Physics.Raycast(cameraPos, Vector3.down, out RaycastHit hit, 10f)) {
-                startPos = hit.point;
+            Vector3 startPos;
+            if (_hasStart) {
+                startPos = _startPos; // from dropdown selection
+                Debug.Log($"Using manual start: {startPos}");
             }
             else {
+                Vector3 cameraPos = xrCamera.position;
                 startPos = new Vector3(cameraPos.x, buildingRoot.position.y, cameraPos.z);
+                Debug.Log($"Using camera start: {startPos}");
             }
+
+            //if (Physics.Raycast(cameraPos, Vector3.down, out RaycastHit hit, 10f)) {
+            //    startPos = hit.point;
+            //}
+            //else {
+            //    startPos = new Vector3(cameraPos.x, buildingRoot.position.y, cameraPos.z);
+            //}
 
             NavMeshHit startHit;
             if (!NavMesh.SamplePosition(startPos, out startHit, 5f, NavMesh.AllAreas)) {
@@ -96,6 +102,8 @@ namespace UniNav.Core {
                     line.positionCount = corners.Length;
                     line.SetPositions(corners);
                     Debug.Log($"Path drawn: {corners.Length} corners.");
+
+                    _hasStart = false;
                 }
                 else {
                     Debug.LogWarning($"Path status: {_path.status}");

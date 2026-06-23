@@ -116,17 +116,17 @@ public class InterfaceController : MonoBehaviour
             return;
         }
 
-        // Use demoDestinations for the lookup
-        if (loadedDestinations.TryGetValue(destination, out Vector3 targetCoords)) {
-            Debug.Log($"Step 8: Route Found in Dictionary at {targetCoords}.");
-            PathManager.SetTarget(targetCoords);
-            Debug.Log("Step 9: Target successfully handed to the PathController.");
-        //    PathManager.SetStart(targetCoords);
-        //    Debug.Log("Step 10: Start successfully handed to the PathController.");
+        if (!loadedDestinations.TryGetValue(destination, out Vector3 targetCoords)) {
+            Debug.LogError($"Destination '{destination}' not found in rooms.");
+            return;
         }
-        else {
-            Debug.LogError($"CRASH POINT: Dictionary Lookup Failed! '{destination}' or '{start}' does not exist in rooms.");
+        if (!loadedDestinations.TryGetValue(start, out Vector3 startCoords)) {
+            Debug.LogError($"Start '{start}' not found in rooms.");
+            return;
         }
+        Debug.Log($"Routing from {start} at {startCoords} to {destination} at {targetCoords}");
+        PathManager.SetTarget(targetCoords);
+        PathManager.SetStart(startCoords);
     }
 
     void FillDropdown() {
