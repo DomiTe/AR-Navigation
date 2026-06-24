@@ -62,11 +62,12 @@ namespace UniNav.Core {
                 Debug.LogError("Building Root missing!");
                 return;
             }
+
             line.positionCount = 0;
             _targetPos = buildingRoot.TransformPoint(localCoordinates);
             _hasTarget = true;
             //_hasStart = false;
-            _cameraOffset = Vector3.zero;
+            //_cameraOffset = Vector3.zero;
             Debug.Log($"Target set in world space: {_targetPos}");
         }
 

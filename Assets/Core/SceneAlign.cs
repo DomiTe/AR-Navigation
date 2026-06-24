@@ -93,8 +93,17 @@ namespace UniNav.Core
             // get the transform of the chosen virtual anchor
             Transform selectedAnchor = startAnchors[selectedIndex];
 
+            Vector3 camForward = xrCamera.forward;
+            camForward.y = 0;
+            camForward.Normalize();
+
+            Vector3 anchorForward = selectedAnchor.forward;
+            anchorForward.y = 0;
+            anchorForward.Normalize();
+
             // find the difference between where the camera is looking and where the anchor is looking
-            float angleOffset = xrCamera.eulerAngles.y - selectedAnchor.eulerAngles.y;
+            float angleOffset = Vector3.SignedAngle(anchorForward, camForward, Vector3.up);
+
             buildingScanRoot.Rotate(0, angleOffset, 0, Space.World);
 
             Vector3 positionOffset = xrCamera.position - selectedAnchor.position;
