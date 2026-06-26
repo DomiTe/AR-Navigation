@@ -1,5 +1,4 @@
-namespace UniNav.Core 
-{
+namespace UniNav.Core {
     using UnityEngine;
     using UnityEngine.InputSystem;
     //using UnityEngine.XR.ARFoundation;
@@ -24,7 +23,7 @@ namespace UniNav.Core
         //private ARTrackedImageManager _imageManager;
 
         private void Start() {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
             DebugForceAlign();
 #else
             DebugForceAlign();
@@ -131,4 +130,3 @@ namespace UniNav.Core
 
     }
 }
-    

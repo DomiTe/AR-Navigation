@@ -8,13 +8,12 @@ using UniNav.Core;
 using System.IO;
 using Newtonsoft.Json;
 
-public class InterfaceController : MonoBehaviour
-{
+public class InterfaceController : MonoBehaviour {
     public Button B_StartNav;
-    public Toggle T_Elevator; 
+    public Toggle T_Elevator;
     public TMP_Text RouteText;
     public TMP_Dropdown DestinationInput;
-    public TMP_Dropdown StartLocationDropdown; 
+    public TMP_Dropdown StartLocationDropdown;
 
     public PathController PathManager;
 
@@ -36,13 +35,12 @@ public class InterfaceController : MonoBehaviour
 
     private Dictionary<string, Vector3> loadedDestinations = new Dictionary<string, Vector3>();
     private class CoordinateData {
-        public float x {  get; set; }
+        public float x { get; set; }
         public float y { get; set; }
         public float z { get; set; }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    void Start() {
         Debug.Log("Start");
         RouteText.text = "";
         LoadDestinationsFromJson();
@@ -51,8 +49,7 @@ public class InterfaceController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
     }
 
     public void ShowRouteText() {
