@@ -181,6 +181,11 @@ namespace UnityEngine.XR.Templates.AR
         int m_SurfacesTapped;
         int m_CurrentGoalIndex = 0;
 
+        void Start()
+        {
+            StyleContinueButton();
+        }
+
         void Update()
         {
             if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame && !m_AllGoalsFinished && (m_CurrentGoal.CurrentGoal == OnboardingGoals.FindSurfaces || m_CurrentGoal.CurrentGoal == OnboardingGoals.Hints || m_CurrentGoal.CurrentGoal == OnboardingGoals.Scale))
@@ -190,6 +195,34 @@ namespace UnityEngine.XR.Templates.AR
                     StopCoroutine(m_CurrentCoroutine);
                 }
                 CompleteGoal();
+            }
+        }
+
+        void StyleContinueButton()
+        {
+            // Find the Continue Button by name and apply HTW green styling
+            UnityEngine.UI.Button[] allButtons = FindObjectsOfType<UnityEngine.UI.Button>(true);
+            foreach (var btn in allButtons)
+            {
+                if (btn.gameObject.name == "Continue Button")
+                {
+                    UnityEngine.UI.Image img = btn.GetComponent<UnityEngine.UI.Image>();
+                    if (img != null) img.color = new Color(0.46f, 0.72f, 0.17f);
+
+                    TMPro.TMP_Text label = btn.GetComponentInChildren<TMPro.TMP_Text>(true);
+                    if (label != null)
+                    {
+                        label.text      = "Weiter";
+                        label.color     = Color.white;
+                        label.fontStyle = TMPro.FontStyles.Bold;
+                    }
+
+                    UnityEngine.UI.ColorBlock cb = btn.colors;
+                    cb.normalColor      = new Color(0.46f, 0.72f, 0.17f);
+                    cb.highlightedColor = new Color(0.68f, 0.88f, 0.35f);
+                    cb.pressedColor     = new Color(0.22f, 0.40f, 0.06f);
+                    btn.colors = cb;
+                }
             }
         }
 
@@ -272,57 +305,28 @@ namespace UnityEngine.XR.Templates.AR
         }
 
         /// <summary>
-        /// Triggers a restart of the onboarding/coaching process.
+        /// Hides the greeting screen and shows the navigation UI.
         /// </summary>
         public void StartCoaching()
         {
-            if (m_OnboardingGoals != null)
+            // Hide greeting screen
+            if (m_GreetingPrompt != null)
+                m_GreetingPrompt.SetActive(false);
+
+            // Hide all step objects safely
+            for (int i = 0; i < m_StepList.Count; i++)
             {
-                m_OnboardingGoals.Clear();
-            }
-
-            m_OnboardingGoals = new Queue<Goal>();
-
-            if (!m_AllGoalsFinished)
-            {
-                var findSurfaceGoal = new Goal(OnboardingGoals.FindSurfaces);
-                m_OnboardingGoals.Enqueue(findSurfaceGoal);
-            }
-
-            int startingStep = m_AllGoalsFinished ? 1 : 0;
-
-            var tapSurfaceGoal = new Goal(OnboardingGoals.TapSurface);
-            var translateHintsGoal = new Goal(OnboardingGoals.Hints);
-            var scaleHintsGoal = new Goal(OnboardingGoals.Scale);
-            var rotateHintsGoal = new Goal(OnboardingGoals.Hints);
-
-            m_OnboardingGoals.Enqueue(tapSurfaceGoal);
-            m_OnboardingGoals.Enqueue(translateHintsGoal);
-            m_OnboardingGoals.Enqueue(scaleHintsGoal);
-            m_OnboardingGoals.Enqueue(rotateHintsGoal);
-
-            m_CurrentGoal = m_OnboardingGoals.Dequeue();
-            m_AllGoalsFinished = false;
-            m_CurrentGoalIndex = startingStep;
-
-            m_GreetingPrompt.SetActive(false);
-            //m_OptionsButton.SetActive(true);
-            //m_CreateButton.SetActive(true);
-            //m_MenuManager.enabled = true;
-
-            for (int i = startingStep; i < m_StepList.Count; i++)
-            {
-                if (i == startingStep)
-                {
-                    m_StepList[i].stepObject.SetActive(true);
-                    PreprocessGoal();
-                }
-                else
-                {
+                if (m_StepList[i] != null && m_StepList[i].stepObject != null)
                     m_StepList[i].stepObject.SetActive(false);
-                }
             }
 
+            // Show Navigation UI by name
+            GameObject navUI = GameObject.Find("Navigation UI");
+            if (navUI != null)
+                navUI.SetActive(true);
+
+            m_AllGoalsFinished = true;
+            Debug.Log("Greeting dismissed, navigation started.");
         }
     }
 }
