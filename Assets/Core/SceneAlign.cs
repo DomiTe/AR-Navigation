@@ -9,7 +9,7 @@ namespace UniNav.Core
     public class SceneAlign : MonoBehaviour {
 
         [SerializeField] private Transform buildingScanRoot;
-        [SerializeField] private Transform virtualAnchor;
+        //[SerializeField] private Transform virtualAnchor;
 
         [Header("UI Control")]
         [SerializeField] private GameObject navigationUI;
@@ -63,22 +63,22 @@ namespace UniNav.Core
         //    }
         //}
 
-        private void AlignBuilding(Transform detectedImage) {
-            Quaternion rotationOffset = detectedImage.rotation * Quaternion.Inverse(virtualAnchor.localRotation);
-            buildingScanRoot.rotation = rotationOffset;
+        //private void AlignBuilding(Transform detectedImage) {
+        //    Quaternion rotationOffset = detectedImage.rotation * Quaternion.Inverse(virtualAnchor.localRotation);
+        //    buildingScanRoot.rotation = rotationOffset;
 
-            Vector3 positionOffset = detectedImage.position - (rotationOffset * virtualAnchor.localPosition);
-            buildingScanRoot.position = positionOffset;
+        //    Vector3 positionOffset = detectedImage.position - (rotationOffset * virtualAnchor.localPosition);
+        //    buildingScanRoot.position = positionOffset;
 
-            buildingScanRoot.gameObject.SetActive(true);
+        //    buildingScanRoot.gameObject.SetActive(true);
 
-            if (scanUI != null) {
-                scanUI.SetActive(false);
-            }
-            if (navigationUI != null) {
-                navigationUI.SetActive(true);
-            }
-        }
+        //    if (scanUI != null) {
+        //        scanUI.SetActive(false);
+        //    }
+        //    if (navigationUI != null) {
+        //        navigationUI.SetActive(true);
+        //    }
+        //}
 
         public void ConfirmStartLocation() {
             // get the selected dropdown option index
