@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 using UnityEngine.UI;
 using UniNav.Core;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 public class InterfaceController : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class InterfaceController : MonoBehaviour
     public TMP_Dropdown DestinationInput;
     public TMP_Dropdown StartLocationDropdown;
     public PathController PathManager;
+    public SceneAlign SceneAligner;
 
     // HTW green palette
     private static readonly Color GREEN_MAIN   = new Color(0.46f, 0.72f, 0.17f);
@@ -95,11 +98,14 @@ public class InterfaceController : MonoBehaviour
     public void CalculatingRoute(bool useElevator, string start, string destination) {
         Debug.Log("Step 7: Entered CalculatingRoute.");
         if (PathManager == null) { Debug.LogError("CRASH POINT: PathManager slot is EMPTY!"); return; }
+        if (SceneAligner == null) { Debug.LogError("CRASH POINT: SceneAligner slot is EMPTY!"); return; }
         if (!loadedDestinations.TryGetValue(destination, out Vector3 targetCoords)) { Debug.LogError($"Destination '{destination}' not found."); return; }
-        if (!loadedDestinations.TryGetValue(start, out Vector3 startCoords))        { Debug.LogError($"Start '{start}' not found."); return; }
+
+        // Re-base the rig so the chosen start equals the user's real position, then route
+        SceneAligner.AlignRigToStart(start);
+
         Debug.Log($"Routing from {start} to {destination}");
         PathManager.SetTarget(targetCoords, destination);
-        PathManager.SetStart(startCoords);
     }
 
     void FillDropdown() {

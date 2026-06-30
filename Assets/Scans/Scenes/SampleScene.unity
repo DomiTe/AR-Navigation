@@ -6820,7 +6820,7 @@ Transform:
   m_GameObject: {fileID: 702413256}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.68, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10797,13 +10797,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075000274}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: 0.68, y: 3, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!114 &1075000277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12428,7 +12428,7 @@ Transform:
   m_GameObject: {fileID: 1323550131}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.68, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16498,7 +16498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786377731}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17351,6 +17351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UniNav.Core.SceneAlign
   buildingScanRoot: {fileID: 2064776940}
+  xrOrigin: {fileID: 1881143691}
   navigationUI: {fileID: 4291496554973136332}
   scanUI: {fileID: 8428773861734624838}
   startLocationDropdown: {fileID: 1133115200}
@@ -17421,7 +17422,7 @@ MonoBehaviour:
   m_OriginBaseGameObject: {fileID: 1881143684}
   m_CameraFloorOffsetObject: {fileID: 1786377731}
   m_RequestedTrackingOriginMode: 1
-  m_CameraYOffset: 0
+  m_CameraYOffset: 1.2
 --- !u!4 &1881143691
 Transform:
   m_ObjectHideFlags: 0
@@ -17431,7 +17432,7 @@ Transform:
   m_GameObject: {fileID: 1881143684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.68, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19844,7 +19845,7 @@ Transform:
   m_GameObject: {fileID: 2098304173}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.34099984, y: 0, z: 6.586}
+  m_LocalPosition: {x: 0.02, y: 0, z: 6.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29207,6 +29208,7 @@ MonoBehaviour:
   DestinationInput: {fileID: 3077137449731957262}
   StartLocationDropdown: {fileID: 1133115200}
   PathManager: {fileID: 474974584}
+  SceneAligner: {fileID: 1881143685}
 --- !u!1 &5295834240121951651
 GameObject:
   m_ObjectHideFlags: 0

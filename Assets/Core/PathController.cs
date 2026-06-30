@@ -4,9 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+//using System.Security.Cryptography;
 
 namespace UniNav.Core {
     public class PathController : MonoBehaviour {
+
         [Header("References")]
         [SerializeField] private LineRenderer line;
         [SerializeField] private Transform xrCamera;
@@ -21,7 +23,7 @@ namespace UniNav.Core {
         private static readonly Color GREEN_LIGHT = new Color(0.68f, 0.88f, 0.35f);
 
         private NavMeshPath _path;
-        private Vector3 _cameraOffset = Vector3.zero;
+        //private Vector3 _cameraOffset = Vector3.zero;
         private Vector3 _targetPos;
         private bool _hasTarget = false;
         private bool _arrived = false;
@@ -83,15 +85,15 @@ namespace UniNav.Core {
             }
         }
 
-        public void SetStart(Vector3 localCoordinates) {
-            Debug.Log($"SetStart: {localCoordinates}");
-            if (buildingRoot == null) { Debug.LogError("Building Root missing!"); return; }
+        //public void SetStart(Vector3 localCoordinates) {
+        //    Debug.Log($"SetStart: {localCoordinates}");
+        //    if (buildingRoot == null) { Debug.LogError("Building Root missing!"); return; }
 
-            Vector3 worldStart = buildingRoot.TransformPoint(localCoordinates);
-            Vector3 camPos = xrCamera.position;
-            _cameraOffset = new Vector3(worldStart.x - camPos.x, 0f, worldStart.z - camPos.z);
-            Debug.Log($"Camera offset: {_cameraOffset}");
-        }
+        //    Vector3 worldStart = buildingRoot.TransformPoint(localCoordinates);
+        //    Vector3 camPos = xrCamera.position;
+        //    _cameraOffset = new Vector3(worldStart.x - camPos.x, 0f, worldStart.z - camPos.z);
+        //    Debug.Log($"Camera offset: {_cameraOffset}");
+        //}
 
         public void SetTarget(Vector3 localCoordinates, string targetName = "Ziel") {
             if (buildingRoot == null) { Debug.LogError("Building Root missing!"); return; }
@@ -100,7 +102,7 @@ namespace UniNav.Core {
             _targetName = targetName;
             _hasTarget = true;
             _arrived = false;
-            _cameraOffset = Vector3.zero;
+            //_cameraOffset = Vector3.zero;
 
             if (_destText != null) _destText.text = targetName;
             if (_distText != null) _distText.text = "";
@@ -114,13 +116,10 @@ namespace UniNav.Core {
         private void CalculateAndDrawPath() {
             if (xrCamera == null) return;
 
-            Vector3 startPos = new Vector3(
-                xrCamera.position.x + _cameraOffset.x,
-                1.89f,
-                xrCamera.position.z + _cameraOffset.z);
+            Vector3 startPos = xrCamera.position;
 
             NavMeshHit sh;
-            if (!NavMesh.SamplePosition(startPos, out sh, 5f, NavMesh.AllAreas)) {
+            if (!NavMesh.SamplePosition(startPos, out sh, 3f, NavMesh.AllAreas)) {
                 Debug.LogWarning($"Start {startPos} not on NavMesh."); return;
             }
             NavMeshHit th;
