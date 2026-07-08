@@ -2285,7 +2285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 153131670}
   m_Layer: 10
-  m_Name: 'Room_127_Door '
+  m_Name: WC (Room 127)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3674,7 +3674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 256427450}
   m_Layer: 10
-  m_Name: Room_180_Door
+  m_Name: Stairs (Room 180)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3705,7 +3705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 262755300}
   m_Layer: 10
-  m_Name: Room_123_Door
+  m_Name: WC (Room 123)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3736,7 +3736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 266894799}
   m_Layer: 10
-  m_Name: Room_133_Door
+  m_Name: WC (Room 133)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3985,7 +3985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 290755933}
   m_Layer: 10
-  m_Name: Room_120_Door
+  m_Name: Stairs (Room 120)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4491,7 +4491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 365975848}
   m_Layer: 10
-  m_Name: Room_128_Door
+  m_Name: Vending Machine (Room 128)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4615,7 +4615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 397023939}
   m_Layer: 10
-  m_Name: Room_121_Door
+  m_Name: WC (Room 121)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5454,7 +5454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 483619410}
   m_Layer: 10
-  m_Name: Room_177_Door
+  m_Name: Stairs (Room 177)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7196,7 +7196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 744061728}
   m_Layer: 10
-  m_Name: Room_117_Door
+  m_Name: Kopierer (Room 117)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7627,7 +7627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 809866550}
   m_Layer: 10
-  m_Name: Room_131_Door
+  m_Name: WC - Eingeschraenkte (Room 131)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9839,7 +9839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 986068967}
   m_Layer: 10
-  m_Name: Room_129_Door
+  m_Name: WC - Eingeschraenkte (Room 129)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10429,7 +10429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1053431754}
   m_Layer: 10
-  m_Name: Room_139_Door
+  m_Name: WC (Room 139)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13117,7 +13117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1400867034}
   m_Layer: 10
-  m_Name: Room_132_Door
+  m_Name: WC (Room 132)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13223,7 +13223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1411902175}
   m_Layer: 10
-  m_Name: Room_119_Door
+  m_Name: Stairs (Room 119)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13555,7 +13555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1434388864}
   m_Layer: 10
-  m_Name: Room_176_Door
+  m_Name: Stairs (Room 176)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14581,7 +14581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1520433088}
   m_Layer: 10
-  m_Name: Room_179_Door
+  m_Name: Stairs (Room 179)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15556,7 +15556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1634710668}
   m_Layer: 10
-  m_Name: Room_138_Door
+  m_Name: WC - Eingeschraenkte (Room 138)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16516,7 +16516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1787336636}
   m_Layer: 10
-  m_Name: Room_140_Door
+  m_Name: WC (Room 140)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18726,7 +18726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1988895477}
   m_Layer: 10
-  m_Name: Room_130_Door
+  m_Name: WC - Eingeschraenkte (Room 130)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19448,7 +19448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2062181117}
   m_Layer: 10
-  m_Name: Room_137_Door
+  m_Name: WC - Eingeschraenkte (Room 137)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19547,7 +19547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2075104323}
   m_Layer: 10
-  m_Name: Room_178_Door
+  m_Name: Stairs (Room 178)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
