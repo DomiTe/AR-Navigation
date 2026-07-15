@@ -65,7 +65,7 @@ Die Anwendung wurde erfolgreich in Unity erstellt. Ein Einblick in dessen Funkti
 Nachfolgend wird auf die in Gliederungspunkt [3. Zielfeatures](#3-zielfeatures) genannten Features und deren Umsetzung eingegangen.
 
 ### 6.1 Aktuelle Standorterkennung 
-Um die aktuelle Position des Nutzendens zu bestimmen, wurden insgesamt drei Ansätze verfolgt. Zuerst wurde probiert die Standortekennung über bereits [existierende Raumnummern](Assets/Core/tag.jpg), die von der Handykamera erfasst werden, zu implementieren. Dies scheiterte allerdings wegen schlechtem Kontrast zwischen Hintergrund und Schrift. Danach wurde versucht, die Standorterkennung über [QR-Codes](Assets/Material/qr-code.jpg) an den Etagenwänden umzusetzen. Auch dieser Ansatz scheiterte aus dem selben Grund. Wir denken, dass die Belichtung das Problem sein könnte. 
+Um die aktuelle Position des Nutzendens zu bestimmen, wurden insgesamt drei Ansätze verfolgt. Zuerst wurde probiert die Standortekennung über bereits [existierende Raumnummern](Assets/Core/tag.jpg), die von der Handykamera erfasst werden, zu implementieren. Dies scheiterte allerdings wegen schlechtem Kontrast zwischen Hintergrund und Schrift. Danach wurde versucht, die Standorterkennung über [QR-Codes](Assets/Material/qr-code.jpg) (der QR-Code beinhaltet den Namen "Elevator 1") an den Etagenwänden umzusetzen. Auch dieser Ansatz scheiterte aus dem selben Grund. Wir denken, dass die Belichtung das Problem sein könnte. 
 Um die genannten Lösungsansätze nachzuvollziehen, sind sie in [SceneAlign.cs](Assets/Core/SceneAlign.cs) enthalten und auskommentiert. 
 
 Der dritte Ansatz und die aktuelle Umsetzung ist die Standorterkennung über die manuelle Auswahl des Startpunktes im Dropdown Menü. 
@@ -74,7 +74,7 @@ Die Navigation funktioniert nur dann, wenn die App in einer spezifischen Ausrich
 
  #### **Aublick Kompass**
 
-Eine Idee nach der Präsentation war, einen Kompass für die korrekte Ausrichtung der Szene beim Starten der Anwendung einzubauen. Das Problem ist hier allerdings: Auch wenn man einen Kompass einbauen könnte, würde die Anwendung initial nicht wissen, wo und in welcher Ausrichtung man aktuell zur gemappten Szene innerhalb der App steht. Das heißt, die größte Erweiterung für einen Ausblick wäre eine funktionierende Implementierung von QR-Code-Tracking (oder anderen Merkmalen).
+Eine Idee vom Professor nach der Präsentation war es, einen Kompass für die korrekte Ausrichtung der Szene beim Starten der Anwendung einzubauen. Das Problem ist hier allerdings: Auch wenn man einen Kompass einbauen könnte, würde die Anwendung initial nicht wissen, wo und in welcher Ausrichtung man aktuell zur gemappten Szene innerhalb der App steht. Das heißt, die größte Erweiterung für einen Ausblick wäre eine funktionierende Implementierung von QR-Code-Tracking (oder anderen Merkmalen).
 
 ### 6.2 Routenoptimierung: Berechnung des kürzesten Weges
 Die Berechnung des kürzesten Weges wurde mit Hilfe von einem Navigation Mesh umgesetzt. Dieser Mesh wurde anhand von der Nachmodellierung des ersten Flurs (C Gebäude) mit der Library AI Navigation erstellt. Die Navigation erfolgt über die PathController.cs Datei, die die aktuelle Position des Nutzenden und den ausgewählten Zielort entgegennimmt und den kürzesten Weg berechnet. 
