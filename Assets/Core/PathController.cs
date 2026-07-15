@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-//using System.Security.Cryptography;
 
 namespace UniNav.Core {
     public class PathController : MonoBehaviour {
@@ -23,7 +22,6 @@ namespace UniNav.Core {
         private static readonly Color GREEN_LIGHT = new Color(0.68f, 0.88f, 0.35f);
 
         private NavMeshPath _path;
-        //private Vector3 _cameraOffset = Vector3.zero;
         private Vector3 _targetPos;
         private bool _hasTarget = false;
         private bool _arrived = false;
@@ -85,15 +83,6 @@ namespace UniNav.Core {
             }
         }
 
-        //public void SetStart(Vector3 localCoordinates) {
-        //    Debug.Log($"SetStart: {localCoordinates}");
-        //    if (buildingRoot == null) { Debug.LogError("Building Root missing!"); return; }
-
-        //    Vector3 worldStart = buildingRoot.TransformPoint(localCoordinates);
-        //    Vector3 camPos = xrCamera.position;
-        //    _cameraOffset = new Vector3(worldStart.x - camPos.x, 0f, worldStart.z - camPos.z);
-        //    Debug.Log($"Camera offset: {_cameraOffset}");
-        //}
 
         public void SetTarget(Vector3 localCoordinates, string targetName = "Ziel") {
             if (buildingRoot == null) { Debug.LogError("Building Root missing!"); return; }
@@ -102,7 +91,6 @@ namespace UniNav.Core {
             _targetName = targetName;
             _hasTarget = true;
             _arrived = false;
-            //_cameraOffset = Vector3.zero;
 
             if (_destText != null) _destText.text = targetName;
             if (_distText != null) _distText.text = "";
@@ -190,7 +178,7 @@ namespace UniNav.Core {
             UpdateEdgeIndicator();
         }
 
-        // ▲ am Bildschirmrand wenn der Pfeil außerhalb des Sichtfeldes ist
+        // am Bildschirmrand wenn der Pfeil außerhalb des Sichtfeldes ist
         private void UpdateEdgeIndicator() {
             if (_edgeIndicator == null || _arrowObj == null) return;
 
@@ -446,7 +434,7 @@ namespace UniNav.Core {
 
             _arrivalPanel.SetActive(false);
 
-            // ▲ Indikator am Bildschirmrand
+            // Indikator am Bildschirmrand
             _edgeIndicator = new GameObject("EdgeIndicator");
             _edgeIndicator.transform.SetParent(canvasGO.transform, false);
             _edgeIndicatorRT = _edgeIndicator.AddComponent<RectTransform>();

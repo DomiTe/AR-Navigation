@@ -59,28 +59,21 @@ public class InterfaceController : MonoBehaviour
     void Update() { }
 
     public void ShowRouteText() {
-        Debug.Log("Step 1: Button clicked.");
 
         if (T_Elevator == null) Debug.LogError("CRASH POINT: Elevator Toggle slot is empty in Inspector!");
         bool useElevator = T_Elevator.isOn;
-        Debug.Log("Step 2: Elevator read successfully.");
 
         if (StartLocationDropdown == null) Debug.LogError("CRASH POINT: Start Location Dropdown slot is empty in Inspector!");
         if (StartLocationDropdown.captionText == null) Debug.LogError("CRASH POINT: Start Location Dropdown is missing its caption text component!");
         string start = StartLocationDropdown.options[StartLocationDropdown.value].text;
-        Debug.Log("Step 3: Start: " + start);
 
         if (DestinationInput == null) Debug.LogError("CRASH POINT: Dropdown slot is empty in Inspector!");
         if (DestinationInput.captionText == null) Debug.LogError("CRASH POINT: Dropdown is missing its caption text component!");
         string destination = DestinationInput.options[DestinationInput.value].text;
-        Debug.Log("Step 4: Destination: " + destination);
 
         if (RouteText != null) {
             RouteText.text = destination;
-            Debug.Log("Step 5: UI updated.");
         }
-
-        Debug.Log("Step 6: Handing off to CalculateRoute...");
         CalculatingRoute(useElevator, start, destination);
     }
 
@@ -96,7 +89,6 @@ public class InterfaceController : MonoBehaviour
     }
 
     public void CalculatingRoute(bool useElevator, string start, string destination) {
-        Debug.Log("Step 7: Entered CalculatingRoute.");
         if (PathManager == null) { Debug.LogError("CRASH POINT: PathManager slot is EMPTY!"); return; }
         if (SceneAligner == null) { Debug.LogError("CRASH POINT: SceneAligner slot is EMPTY!"); return; }
         if (!loadedDestinations.TryGetValue(destination, out Vector3 targetCoords)) { Debug.LogError($"Destination '{destination}' not found."); return; }
@@ -116,7 +108,6 @@ public class InterfaceController : MonoBehaviour
         StartLocationDropdown.AddOptions(options);
     }
 
-    // ---------------------------------------------------------------
     // Menu theming — runs automatically at Start()
 
     private void ApplyMenuTheme() {
