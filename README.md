@@ -29,7 +29,7 @@ Um die Raumsuche dynamischer zu gestalten, möchten wir eine Unity Anwendung ers
 - Dark- & Whitemode
 
 ## 4. Eigenanteil und Aufgabenverteilung 
-Der Eigenanteil der Gruppe in diesem Projekt ist die Erstellung von **Scans** (mit der Multiset App (IOs) erstellt und im Core/Scans/ Ordner enthalten), die Navigation mittels der **PathController.cs** und **SceneAlign.cs** Dateien, sowie die Visualisierung auf dem Mobiltelefon und die Verknüpfung von Front- und Backend mit der **InterfaceController.cs** Datei.
+Der Eigenanteil der Gruppe in diesem Projekt ist die Erstellung von **Scans** (mit der Multiset App (iOS) erstellt und im Core/Scans/ Ordner enthalten), die Navigation mittels der **PathController.cs** und **SceneAlign.cs** Dateien, sowie die Visualisierung auf dem Mobiltelefon und die Verknüpfung von Front- und Backend mit der **InterfaceController.cs** Datei.
 
 Wir haben KI genutzt um uns Hinweise fürs Debugging geben zu lassen, jedoch keine Inhalte von der KI generieren lassen. 
 
@@ -47,11 +47,10 @@ In den folgenden Tabellen sind die genutzten Assets und Bibliotheken aufgeführt
 
 | Assets | Beschreibung | Quelle |
 |---|---|---|
-|`3D Scans`| im Scan Ordner | Multiset App (IOs) |
+|`3D Scans`| im Scan Ordner | Multiset App (iOS) |
 
 | Bibliothek | Beschreibung | Quelle |
 |---|---|---|
-|| |
 |`AI Navigation`| für den Navigation Mesh | Unity Registry |
 |`AR Foundation`| `ReferenceImageLibrary` für den Versuch den aktuellen Standort über QR-Codes zu ermitteln | Unity Registry |
 |`Google ARCore XR Plugin`| Standart AR-Core Library | Unity Registry |
@@ -77,13 +76,13 @@ Die Navigation funktioniert nur dann, wenn die App in einer spezifischen Ausrich
 Eine Idee vom Professor nach der Präsentation war es, einen Kompass für die korrekte Ausrichtung der Szene beim Starten der Anwendung einzubauen. Das Problem ist hier allerdings: Auch wenn man einen Kompass einbauen könnte, würde die Anwendung initial nicht wissen, wo und in welcher Ausrichtung man aktuell zur gemappten Szene innerhalb der App steht. Das heißt, die größte Erweiterung für einen Ausblick wäre eine funktionierende Implementierung von QR-Code-Tracking (oder anderen Merkmalen).
 
 ### 6.2 Routenoptimierung: Berechnung des kürzesten Weges
-Die Berechnung des kürzesten Weges wurde mit Hilfe von einem Navigation Mesh umgesetzt. Dieser Mesh wurde anhand von der Nachmodellierung des ersten Flurs (C Gebäude) mit der Library AI Navigation erstellt. Die Navigation erfolgt über die PathController.cs Datei, die die aktuelle Position des Nutzenden und den ausgewählten Zielort entgegennimmt und den kürzesten Weg berechnet. 
+Die Berechnung des kürzesten Weges wurde mit Hilfe von einem Navigation Mesh umgesetzt. Dieser Mesh wurde anhand von der Nachmodellierung des ersten Flurs (C Gebäude) mit der Library AI Navigation erstellt. Die Navigation erfolgt über die **PathController.cs** Datei, die die aktuelle Position des Nutzenden und den ausgewählten Zielort entgegennimmt und den kürzesten Weg berechnet. 
 
 ### 6.3 Visuelle Wegweiser
 Der visuelle Wegweiser ist in Form von grünen Pfeilen auf dem Handydisplay dargestellt. Sie zeigen die Richtung an, in die der Nutzende gehen muss, um zum Ziel zu gelangen. Die Pfeile werden dynamisch aktualisiert, basierend auf der  Position des Nutzenden und der berechneten Route. 
 
 Am unteren Bildschirmrand wird die Entfernung zum Ziel in Metern angezeigt.
-Wenn das Ziel erreicht ist, wird eine Meldung auf dem Display ausgegeben und die Navigation endet (siehe Bild). 
+Wenn das Ziel erreicht ist, wird eine Meldung auf dem Display ausgegeben und die Navigation endet. 
 
 ### 6.4 Barrierefreiheit: Auswahl zwischen Fahrstuhl oder Treppe
 Die Auswahlmöglichkeit wurde mit der Checkbox "Use Elevator", die sich neben der Auswahl von Start- und Endpunkt befindet, umgesetzt. Wenn diese angeklickt ist, wird die Information an das Backend weitergegeben. 
@@ -105,8 +104,3 @@ Im Rahmen des Projekts wurde ein funktionierender AR-Indoor-Navigation-Prototyp 
 Die Standorterkennung erfolgt aktuell über die manuelle Auswahl des Startpunktes im Dropdown Menü. Dies könnte in zukünftigen Projekten verbessert werden, indem eine Alternative zur Standorterkennung über QR-Codes oder Raumnummern gefunden wird. 
 
 Wenn weitere Etagen gescannt und die Räume dazu gemappt werden, kann die Anwendung erweitert und die Funktionalität der Barrierefreiheit (Fahrstuhl oder Treppe) vollständig umgesetzt werden. 
-
-
-## Todo 
-- QR Code einfügen als png & Lösungsansatz im Code einfügen ud auskommentieren (Link in Doku)
-- Kompass 
